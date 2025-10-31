@@ -4,9 +4,9 @@
 """
 
 from aiogram import Router, F
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery
 from .keyboards import PluginKeyboardBuilder
-from databases import DatabaseManager
+from modules.databases import DatabaseManager
 from .services.service import Service
 import logging
 

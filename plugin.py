@@ -8,8 +8,8 @@ from core.config import ConfigManager
 from aiogram import Router
 from aiogram.types import InlineKeyboardButton
 from core.middlewares import PluginLoggerMiddleware
-from databases import DatabaseManager
-from .config import PluginSettings, ENABLED
+from modules.databases import DatabaseManager
+from .config import PluginSettings
 from .handlers import PluginHandlers
 from .keyboards import PluginKeyboardBuilder
 

@@ -3,7 +3,7 @@
 Содержит SQLAlchemy модели для плагина
 """
 
-from databases.database_manager import Base
+from modules.databases.database_manager import Base
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 
 

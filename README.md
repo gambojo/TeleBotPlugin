@@ -54,14 +54,16 @@ class PluginSettings(BaseSettings):
 ```
 
 - **2. plugin.py - главный класс**
+
 ```python
 # 🚫 СИСТЕМНЫЙ КОД - НЕ ИЗМЕНЯТЬ!
 from core.plugins.base import PluginBase
 from core.config import ConfigManager
 from aiogram import Router
 from aiogram.types import InlineKeyboardButton, CallbackQuery
-from databases import DatabaseManager
+from modules.databases import DatabaseManager
 from .config import PluginSettings
+
 
 # 🚫 СИСТЕМНЫЙ КОД - НЕ ИЗМЕНЯТЬ!
 class Plugin(PluginBase):
@@ -75,7 +77,7 @@ class Plugin(PluginBase):
     # 🚫 СИСТЕМНЫЙ КОД - НЕ ИЗМЕНЯТЬ!
     def get_router(self) -> Router:
         router = Router(name=self.plugin_name)
-        
+
         # 🔧 НАСТРОЙТЕ ЭТО - добавьте ваши обработчики
         @router.callback_query(lambda c: c.data == f"plugin:{self.plugin_name}")
         async def entry_point(callback: CallbackQuery):
@@ -83,7 +85,7 @@ class Plugin(PluginBase):
                 f"Привет! Это {self.settings.PLUGIN_TITLE}",
                 reply_markup=self._get_main_keyboard()
             )
-        
+
         return router
 
     # 🚫 СИСТЕМНЫЙ КОД - НЕ ИЗМЕНЯТЬ!
@@ -91,7 +93,7 @@ class Plugin(PluginBase):
         # 🔧 НАСТРОЙТЕ ЭТО - ваши кнопки для главного меню
         return [
             [InlineKeyboardButton(
-                text=self.settings.BUTTON_TEXT, 
+                text=self.settings.BUTTON_TEXT,
                 callback_data=f"plugin:{self.plugin_name}"
             )]
         ]
@@ -241,14 +243,16 @@ def _get_main_keyboard(self):
 └── models.py          # Дополнительно -> Новый файл - модели данных для БЛ
 ```
 - **Создайте файл models.py:** - таблица еудет создана автоматически при запуске!
+
 ```python
-from databases.database_manager import Base
+from modules.databases.database_manager import Base
 from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
 
+
 class UserData(Base):
     __tablename__ = "plugin_data"
-    
+
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer)
     data = Column(String)
@@ -266,15 +270,17 @@ class UserData(Base):
     └── service.py     # Дополнительно -> Новый файл - внутренняя логика или интеграции с внешними сервисами
 ```
 - **Создайте папку services/ и файл services/service.py:**
+
 ```python
 from sqlalchemy import select
-from databases import DatabaseManager
+from modules.databases import DatabaseManager
 from ..models import UserData
+
 
 class PluginService:
     def __init__(self, db: DatabaseManager):
         self.db = db
-    
+
     async def save_user_data(self, user_id: int, data: str):
         session = self.db.create_session()
         async with session:
@@ -282,7 +288,7 @@ class PluginService:
             session.add(user_data)
             await session.commit()
             return user_data
-    
+
     async def get_user_data(self, user_id: int):
         session = self.db.create_session()
         async with session:
@@ -556,15 +562,17 @@ class PluginKeyboardBuilder(KeyboardBuilderBase):
         return self
 ```
 - **Обновленный plugin.py**
+
 ```python
 from core.plugins.base import PluginBase
 from core.config import ConfigManager
 from aiogram import Router
 from aiogram.types import InlineKeyboardButton
-from databases import DatabaseManager
+from modules.databases import DatabaseManager
 from .config import PluginSettings
 from .handlers import PluginHandlers  # 🔧 Теперь используем отдельные handlers
 from .keyboards import PluginKeyboardBuilder
+
 
 class Plugin(PluginBase):
     def __init__(self, config: ConfigManager, db: DatabaseManager):
