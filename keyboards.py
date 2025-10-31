@@ -6,17 +6,16 @@
 from .config import PluginSettings
 from core.keyboards import KeyboardBuilderBase
 
-
 class PluginKeyboardBuilder(KeyboardBuilderBase):
     """
-    Построитель клавиатур для плагина
+    Построитель клавиатур для плагина-шаблона
     Наследует: KeyboardBuilderBase (ядро системы)
     Параметры: plugin_conf - настройки плагина, plugin_name - имя плагина
     Возвращает: экземпляр построителя
 
     Пример использования:
         builder = PluginKeyboardBuilder(settings, "TEMPLATE")
-        keyboard = builder.main_menu().build_markup()
+        keyboard = builder.plugin_menu().build_markup()
     """
 
     def __init__(self, plugin_conf: PluginSettings, plugin_name: str):

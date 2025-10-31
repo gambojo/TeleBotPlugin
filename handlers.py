@@ -9,10 +9,9 @@ from .keyboards import PluginKeyboardBuilder
 from databases import DatabaseManager
 from .services.service import Service
 
-
 class PluginHandlers:
     """
-    Класс обработчиков плагина
+    Класс обработчиков плагина-шаблона
     Параметры: config - настройки плагина, plugin_name - имя плагина, db - менеджер БД
     Возвращает: экземпляр обработчиков
 
