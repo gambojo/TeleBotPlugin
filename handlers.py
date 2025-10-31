@@ -8,6 +8,8 @@ from aiogram.types import CallbackQuery, Message
 from .keyboards import PluginKeyboardBuilder
 from databases import DatabaseManager
 from .services.service import Service
+import logging
+
 
 class PluginHandlers:
     """
@@ -32,6 +34,7 @@ class PluginHandlers:
         self.config = config
         self.plugin_name = plugin_name
         self.service = Service(db)
+        self.logger = logging.getLogger(__name__)
 
     def register(self, router: Router):
         """
