@@ -1,3 +1,8 @@
+"""
+Модуль сервисов плагина
+Содержит бизнес-логику и операции с данными
+"""
+
 from sqlalchemy import select
 from databases import DatabaseManager
 from ..models import Data
@@ -6,21 +11,34 @@ from datetime import datetime
 
 class Service:
     """
-    Сервис для работы с данными плагина-шаблона
+    Сервис для работы с данными плагина
     Параметры: db - менеджер БД
     Возвращает: экземпляр Service
-    Пример: service = Service(db)
+
+    Пример использования:
+        service = Service(db)
+        data = await service.create(123, 'Заголовок', 'Текст')
     """
 
     def __init__(self, db: DatabaseManager):
+        """
+        Инициализация сервиса
+        Параметры: db (DatabaseManager) - менеджер базы данных
+        Возвращает: None
+        """
         self.db = db
 
     async def create(self, user_id: int, title: str, content: str):
         """
-        Создает новую запись примера
-        Параметры: user_id - ID пользователя, title - заголовок, content - содержимое
+        Создает новую запись в базе данных
+        Параметры:
+            user_id (int): ID пользователя
+            title (str): заголовок записи
+            content (str): содержимое записи
         Возвращает: Data - созданная запись
-        Пример: example = await service.create(123, 'Заголовок', 'Текст')
+
+        Пример:
+            data = await service.create(123, 'Заголовок', 'Текст записи')
         """
         session = self.db.create_session()
         async with session:
@@ -37,10 +55,14 @@ class Service:
 
     async def get(self, user_id: int):
         """
-        Получает все примеры пользователя
-        Параметры: user_id - ID пользователя
-        Возвращает: list[ExampleData] - список записей пользователя
-        Пример: examples = await service.get(123)
+        Получает все записи пользователя
+        Параметры: user_id (int) - ID пользователя
+        Возвращает: list[Data] - список записей пользователя
+
+        Пример:
+            records = await service.get(123)
+            for record in records:
+                print(record.title)
         """
         session = self.db.create_session()
         async with session:
