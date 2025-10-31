@@ -114,4 +114,4 @@ class PluginHandlers:
 
         except Exception as e:
             self.logger.error(f"Error in bt2: {e}")
-            await callback.answer("❌ Ошибка при получении данных", show_alert=True)
+            pass
