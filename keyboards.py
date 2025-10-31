@@ -1,4 +1,4 @@
-from plugins.vpn.config import PluginSettings
+from .config import PluginSettings
 from core.keyboards import KeyboardBuilderBase
 
 
