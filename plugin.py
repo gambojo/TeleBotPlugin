@@ -6,7 +6,7 @@
 from core.plugins.base import PluginBase
 from core.config import ConfigManager
 from aiogram import Router
-from aiogram.types import InlineKeyboardButton
+from aiogram.types import InlineKeyboardButton, CallbackQuery
 from databases import DatabaseManager
 from .config import PluginSettings
 
